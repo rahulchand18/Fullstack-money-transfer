@@ -1,4 +1,4 @@
-const Redis = require("ioredis");
+import Redis from "ioredis";
 
 const redis = new Redis({
   host: process.env.REDIS_HOST,
@@ -6,5 +6,6 @@ const redis = new Redis({
 });
 
 redis.on("connect", () => console.log("Redis connected"));
+redis.on("error", (error) => console.log("Redis error", error));
 
-module.exports = redis;
+export default redis;
