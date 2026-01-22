@@ -60,10 +60,31 @@ Local Development: - Backend: `backend/.env.example` - Frontend:
 
 3.  Run seeds: docker exec -it backend npx knex seed:run --knexfile src/db/knexfile.js
 
-Seed must be run one time to import default admin. Before running seed, make sure the email in users_seed.js file is accessible for OTP.
-If SEND_EMAILS is false then sending mail is disabled. If you don't want to setup mail config, the OTP is logged in console of backend.
-
 ---
+
+## 🌱 Database Seeding (Default Admin)
+
+The application requires a **default admin user** to be present in the system.
+
+### Important Notes
+
+- The **seed must be run one time** to insert the default admin.
+- Before running the seed, make sure the **email address defined in `users_seed.js` is accessible**, as OTP login depends on it.
+- If email sending is disabled, OTP will not be sent via email.
+
+### Email Configuration
+
+- If `SEND_EMAILS=false`:
+  - Email delivery is disabled
+  - OTP will be **logged in the backend console**
+- If `SEND_EMAILS=true`:
+  - Proper mail configuration must be set up
+  - OTP will be sent to the admin’s email address
+
+### Running the Seed on local
+
+```bash
+npx knex seed:run --knexfile src/db/knexfile.js
 
 ## Access URLs
 
@@ -72,8 +93,4 @@ Backend API: http://localhost:3000
 
 ---
 
-## Transaction Status Lifecycle
-
-PENDING → COMPLETED
-
----
+```
