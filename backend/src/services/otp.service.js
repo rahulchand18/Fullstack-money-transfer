@@ -1,12 +1,22 @@
-const redis = require("ioredis")();
+import redis from "../utils/redis.js";
 
-exports.generateOtp = async (email) => {
+export async function generateOtp(email, rateLimitKey) {
   const otp = Math.floor(100000 + Math.random() * 900000);
   await redis.set(`otp:${email}`, otp, "EX", 300);
-  return otp;
-};
+  await redis.set(rateLimitKey, "1", "EX", 60);
 
-exports.verifyOtp = async (email, otp) => {
-  const saved = await redis.get(`otp:${email}`);
-  return saved === otp;
-};
+  return otp;
+}
+
+export async function verifyOtp(email, otp) {
+  const key = `otp:${email}`;
+
+  const saved = await redis.get(key);
+  if (!saved) return false;
+
+  if (saved !== otp.toString()) return false;
+
+  await redis.del(key);
+
+  return true;
+}

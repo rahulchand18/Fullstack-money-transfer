@@ -1,4 +1,4 @@
-const { Model } = require("objection");
+import { Model } from "objection";
 
 class BaseModel extends Model {
   $beforeInsert() {
@@ -10,4 +10,4 @@ class BaseModel extends Model {
   }
 }
 
-module.exports = BaseModel;
+export default BaseModel;
