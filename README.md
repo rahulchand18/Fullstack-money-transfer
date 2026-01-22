@@ -46,6 +46,7 @@ Service Fee (NPR-based slabs): - 0 -- 100,000 → NPR 500 - 100,000.01 --
 ## Environment Configuration
 
 Docker: - Uses `.env.docker` inside respective folders frontend and backend
+Rename .env.docker to .env before running compose file
 
 Local Development: - Backend: `backend/.env.example` - Frontend:
 `frontend/.env.example`
