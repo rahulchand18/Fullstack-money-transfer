@@ -1,25 +1,20 @@
-import kafka from "../config/kafka";
+import { Kafka } from "kafkajs";
+import dotenv from "dotenv";
+dotenv.config();
 
-const producer = kafka.producer();
+const kafka = new Kafka({
+  clientId: "send-money-api",
+  brokers: [process.env.KAFKA_BROKER],
+});
 
-const connectProducer = async () => {
-  await producer.connect();
-  console.log("✅ Kafka Producer connected");
-};
+export const producer = kafka.producer();
 
-const sendTransactionEvent = async (payload) => {
-  await producer.send({
-    topic: "money-transactions",
-    messages: [
-      {
-        key: payload.transactionId,
-        value: JSON.stringify(payload),
-      },
-    ],
-  });
-};
+let isConnected = false;
 
-export default {
-  connectProducer,
-  sendTransactionEvent,
-};
+export async function connectProducer() {
+  if (!isConnected) {
+    await producer.connect();
+    isConnected = true;
+    console.log("Kafka producer connected");
+  }
+}

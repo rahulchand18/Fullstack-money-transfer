@@ -63,12 +63,12 @@ export default function Dashboard() {
 
             <div className="max-w-5xl mx-auto my-3 bg-white p-6 rounded shadow">
                 <div className="flex justify-between mb-4">
-                    <h1 className="text-xl font-semibold">Admin Management</h1>
+                    <h1 className="text-xl font-semibold">User Management</h1>
                     <button
                         onClick={() => setOpenModal(true)}
                         className="bg-blue-600 text-white px-4 py-2 rounded"
                     >
-                        + Add Admin
+                        + Add User
                     </button>
                 </div>
 

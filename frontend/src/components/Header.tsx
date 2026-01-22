@@ -32,6 +32,15 @@ export default function Header() {
                 >
                     Senders / Receivers
                 </NavLink>
+
+                <NavLink
+                    to="/transactions"
+                    className={({ isActive }) =>
+                        isActive ? "text-blue-600 font-medium" : "text-gray-600"
+                    }
+                >
+                    Transactions
+                </NavLink>
             </div>
 
             <div className="flex items-center gap-4">

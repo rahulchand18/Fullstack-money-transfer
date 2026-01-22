@@ -4,6 +4,7 @@ import redis from "../utils/redis.js";
 import authRoutes from "./auth.routes.js";
 import userRoutes from "./user.routes.js";
 import senderReceiverRoutes from "./sender-receiver.routes.js";
+import transactionRoutes from "./transaction.routes.js";
 
 router.get("", async (req, res) => {
   await redis.set("test:key", "hello", "EX", 60);
@@ -14,5 +15,6 @@ router.get("", async (req, res) => {
 router.use("/api/auth", authRoutes);
 router.use("/api/users", userRoutes);
 router.use("/api/sender-receivers", senderReceiverRoutes);
+router.use("/api/transactions", transactionRoutes);
 
 export default router;
