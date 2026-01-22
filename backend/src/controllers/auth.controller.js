@@ -30,8 +30,13 @@ export async function requestOtp(req, res) {
 
     const otp = await generateOtp(email, rateLimitKey);
 
-    // await sendOtpEmail(email, otp);
-    console.log(otp);
+    if (process.env.SEND_EMAILS === "true") {
+      await sendOtpEmail(email, otp);
+    } else {
+      console.log("Sending Mail Disabled!!");
+    }
+
+    console.log(`OTP: ${otp}`);
 
     return res.json({
       message: "OTP sent to registered email",

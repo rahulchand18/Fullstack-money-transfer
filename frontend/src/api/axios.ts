@@ -16,16 +16,19 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      console.warn("401 detected → logging out");
+    const status = error.response?.status;
+    const url = error.config?.url;
 
+    const isAuthRoute =
+      url?.includes("/auth/login") || url?.includes("/auth/verify-otp");
+
+    if (status === 401 && !isAuthRoute) {
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
-
-      window.location.href = "/";
+      window.location.href = "/login";
     }
 
     return Promise.reject(error);

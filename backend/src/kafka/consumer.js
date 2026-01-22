@@ -1,10 +1,12 @@
 import { Kafka } from "kafkajs";
 import "../db/knex.js";
 import Transaction from "../models/Transaction.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const kafka = new Kafka({
   clientId: "transaction-consumer",
-  brokers: ["localhost:9092"],
+  brokers: [process.env.KAFKA_BROKER],
 });
 
 const consumer = kafka.consumer({ groupId: "transaction-group" });
