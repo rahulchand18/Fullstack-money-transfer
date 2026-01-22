@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
+import { showError, showSuccess } from "../utils/toast";
 
 export default function VerifyOtp() {
     const navigate = useNavigate();
@@ -64,6 +65,7 @@ export default function VerifyOtp() {
             });
 
             const { token, user } = res.data.data;
+            showSuccess("Login successful");
 
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
@@ -76,6 +78,8 @@ export default function VerifyOtp() {
             setError(
                 err.response?.data?.message || "Invalid or expired OTP"
             );
+            showError("Invalid or expired OTP");
+
         } finally {
             setLoading(false);
         }
